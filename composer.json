@@ -1,0 +1,27 @@
+{
+    "$schema": "https://getcomposer.org/schema.json",
+    "name": "alex-tsarkov/parsley",
+    "type": "library",
+    "description": "Parser combinators",
+    "require-dev": {
+        "friendsofphp/php-cs-fixer": "^3.95.11",
+        "testo/testo": ">=0.10.38"
+    },
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "AlexTsarkov\\Parsley\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Alex Tsarkov",
+            "email": "alex.tsarkov@gmail.com"
+        }
+    ],
+    "require": {
+        "php": "^8.4",
+        "ext-mbstring": "*",
+        "ext-spl": "*"
+    }
+}
