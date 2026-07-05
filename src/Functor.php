@@ -16,16 +16,16 @@ interface Functor
      *
      * @template NewType
      * @param NewType $value
-     * @return static<NewType>
+     * @return self<NewType>
      */
-    public function as(mixed $value): static;
+    public function as(mixed $value): self;
 
     /**
      * Applies a function to the contained values
      *
      * @template NewType
      * @param callable(Type): NewType $function
-     * @return static<NewType>
+     * @return self<NewType>
      */
-    public function map(callable $function): static;
+    public function map(callable $function): self;
 }
