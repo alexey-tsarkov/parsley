@@ -53,7 +53,7 @@ final readonly class Result implements Functor
      * Transforms value via function, preserves offset
      *
      * @template NewValue
-     * @param callable(Value): NewValue $function
+     * @param callable(Value $value): NewValue $function
      * @return self<NewValue>
      */
     #[\NoDiscard]
