@@ -9,7 +9,7 @@ namespace AlexTsarkov\Parsley;
  *
  * @template Value
  */
-final readonly class Result
+final readonly class Result implements Functor
 {
     /**
      * Factory method creating Result from value and offset
