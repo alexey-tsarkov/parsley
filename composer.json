@@ -1,15 +1,20 @@
 {
     "$schema": "https://getcomposer.org/schema.json",
     "name": "alex-tsarkov/parsley",
+    "description": "Parser combinators for PHP",
     "type": "library",
-    "description": "Parser combinators",
     "license": "MIT",
     "authors": [
         {
-            "name": "Alex Tsarkov",
+            "name": "Alexey Tsarkov",
             "email": "alex.tsarkov@gmail.com"
         }
     ],
+    "support": {
+        "email": "alex.tsarkov@gmail.com",
+        "source": "https://github.com/alexey-tsarkov/parsley",
+        "issues": "https://github.com/alexey-tsarkov/parsley/issues"
+    },
     "require": {
         "php": "^8.4",
         "ext-mbstring": "*",
@@ -24,6 +29,7 @@
             "AlexTsarkov\\Parsley\\": "src/"
         }
     },
+    "prefer-stable": true,
     "config": {
         "sort-packages": true
     },
@@ -31,5 +37,14 @@
         "branch-alias": {
             "main": "0.x-dev"
         }
+    },
+    "archive": {
+        "exclude": [
+            "/tests/",
+            "/testo.php",
+            "/.github/",
+            "/.gitignore",
+            "/.php-cs-fixer.*"
+        ]
     }
 }
