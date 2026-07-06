@@ -14,14 +14,6 @@ namespace AlexTsarkov\Parsley;
 abstract class Stream implements \SeekableIterator, Functor
 {
     /**
-     * Creates a new stream instance with different input
-     *
-     * @return static<Token>
-     */
-    #[\NoDiscard]
-    abstract public function withInput(mixed $input): static;
-
-    /**
      * Returns the current token without advancing the pointer
      *
      * @return Token

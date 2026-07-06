@@ -30,12 +30,6 @@ final class MapStream extends Stream
     }
 
     #[\Override]
-    public function withInput(mixed $input): self
-    {
-        return new self($this->stream->withInput($input), $this->function);
-    }
-
-    #[\Override]
     public function current(): mixed
     {
         return ($this->function)($this->stream->current());
