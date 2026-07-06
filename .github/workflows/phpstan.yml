@@ -4,13 +4,15 @@ on:
 
   push:
     paths:
-      - **.php
+      - src/**
+      - tests/**
       - composer.json
       - .github/workflows/phpstan.yml
 
   pull_request:
     paths:
-      - **.php
+      - src/**
+      - tests/**
       - composer.json
       - .github/workflows/phpstan.yml
 
@@ -38,4 +40,4 @@ jobs:
         uses: ramsey/composer-install@v4
 
       - name: Run PHPStan
-        run: ./vendor/bin/phpstan analyse src tests {testo,.php-cs-fixer.dist}.php
+        run: ./vendor/bin/phpstan analyse --level=max --error-format=github src tests
