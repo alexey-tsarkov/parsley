@@ -35,7 +35,7 @@
     },
     "extra": {
         "branch-alias": {
-            "main": "v0.x-dev"
+            "main": "0.x-dev"
         }
     },
     "archive": {
