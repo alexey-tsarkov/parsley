@@ -1,0 +1,45 @@
+name: Test with Testo
+
+on:
+
+  push:
+    paths:
+      - src/**
+      - tests/**
+      - testo.php
+      - composer.json
+      - .github/workflows/testo.yml
+
+  pull_request:
+    paths:
+      - src/**
+      - tests/**
+      - testo.php
+      - composer.json
+      - .github/workflows/testo.yml
+
+jobs:
+
+  testo:
+    name: Testo
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        php: [8.4, 8.5]
+    steps:
+
+      - name: Checkout code
+        uses: actions/checkout@v7
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          extensions: mbstring
+          coverage: none
+
+      - name: Install Composer dependencies
+        uses: ramsey/composer-install@v3
+
+      - name: Run Testo
+        run: ./vendor/bin/testo
