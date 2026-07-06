@@ -82,4 +82,17 @@ abstract class Stream implements \SeekableIterator, Functor
     {
         return new Stream\MapStream($this, $function);
     }
+
+    /**
+     * @return ?Result<Token>
+     */
+    #[\NoDiscard]
+    final public function peek(): ?Result
+    {
+        if ($this->valid()) {
+            return new Result($this->current(), $this->key());
+        }
+
+        return null;
+    }
 }

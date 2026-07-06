@@ -37,17 +37,4 @@ abstract readonly class Parser implements Functor
     {
         return new Parser\MapParser($this, $function);
     }
-
-    /**
-     * @param Stream<Token> $stream
-     * @return ?Result<Token>
-     */
-    final protected function peek(Stream $stream): ?Result
-    {
-        if (!$stream->valid()) {
-            return null;
-        }
-
-        return new Result($stream->current(), $stream->key());
-    }
 }
