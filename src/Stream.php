@@ -59,13 +59,23 @@ abstract class Stream implements \SeekableIterator, Functor
     #[\Override]
     abstract public function seek(mixed $offset): void;
 
+    /**
+     * @template NewToken
+     * @param NewToken $token
+     * @return self<NewToken>
+     */
     #[\Override]
     #[\NoDiscard]
-    final public function as(mixed $value): self
+    final public function as(mixed $token): self
     {
-        return new Stream\AsStream($this, $value);
+        return new Stream\AsStream($this, $token);
     }
 
+    /**
+     * @template NewToken
+     * @param callable(Token $token): NewToken $function
+     * @return self<NewToken>
+     */
     #[\Override]
     #[\NoDiscard]
     final public function map(callable $function): self

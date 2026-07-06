@@ -9,7 +9,7 @@ use AlexTsarkov\Parsley\Stream;
 /**
  * @template Token
  * @template NewToken
- * @implements Stream<NewToken>
+ * @extends Stream<NewToken>
  */
 final class MapStream extends Stream
 {

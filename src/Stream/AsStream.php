@@ -14,11 +14,11 @@ final class AsStream extends Stream
 {
     /**
      * @param Stream<*> $stream
-     * @param Token $value
+     * @param Token $token
      */
     public function __construct(
         private Stream $stream,
-        private mixed $value,
+        private mixed $token,
     ) {
         if ($stream instanceof self) {
             $this->stream = $stream->stream;
@@ -30,7 +30,7 @@ final class AsStream extends Stream
     {
         (void) $this->stream->current();
 
-        return $this->value;
+        return $this->token;
     }
 
     #[\Override]
