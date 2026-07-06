@@ -66,7 +66,7 @@ abstract class Stream implements \SeekableIterator, Functor
      */
     #[\Override]
     #[\NoDiscard]
-    final public function as(mixed $token): self
+    public function as(mixed $token): self
     {
         return new Stream\AsStream($this, $token);
     }
@@ -78,7 +78,7 @@ abstract class Stream implements \SeekableIterator, Functor
      */
     #[\Override]
     #[\NoDiscard]
-    final public function map(callable $function): self
+    public function map(callable $function): self
     {
         return new Stream\MapStream($this, $function);
     }

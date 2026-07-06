@@ -23,7 +23,7 @@ abstract readonly class Parser implements Functor
      * @return self<Token, NewValue>
      *
      */
-    final public function as(mixed $value): self
+    public function as(mixed $value): self
     {
         return new Parser\AsParser($this, $value);
     }
@@ -33,7 +33,7 @@ abstract readonly class Parser implements Functor
      * @param callable(Value $value): NewValue $function
      * @return self<Token, NewValue>
      */
-    final public function map(callable $function): self
+    public function map(callable $function): self
     {
         return new Parser\MapParser($this, $function);
     }
