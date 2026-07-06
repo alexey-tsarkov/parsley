@@ -18,6 +18,15 @@ abstract readonly class Parser implements Functor
     abstract public function parse(Stream $stream): ?Result;
 
     /**
+     * @param Stream<Token> $stream
+     * @return ?Result<Value>
+     */
+    final public function __invoke(Stream $stream): ?Result
+    {
+        return $this->parse($stream);
+    }
+
+    /**
      * @template NewValue
      * @param NewValue $value
      * @return self<Token, NewValue>
