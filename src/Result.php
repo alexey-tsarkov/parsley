@@ -8,6 +8,7 @@ namespace AlexTsarkov\Parsley;
  * Immutable container for parsed value and its stream position
  *
  * @template Value
+ * @implements Functor<Value>
  */
 final readonly class Result implements Functor
 {

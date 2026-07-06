@@ -17,6 +17,9 @@ use Testo\Test;
 #[Covers(Result::class)]
 final class ResultTest
 {
+    /**
+     * @return iterable<string, array{mixed, int}>
+     */
     public static function differentValueTypes(): iterable
     {
         return [
@@ -32,6 +35,9 @@ final class ResultTest
         ];
     }
 
+    /**
+     * @return iterable<string, array{int}>
+     */
     public static function zeroOrPositiveOffsets(): iterable
     {
         return [
@@ -41,6 +47,9 @@ final class ResultTest
         ];
     }
 
+    /**
+     * @return iterable<string, array{int}>
+     */
     public static function negativeOffsets(): iterable
     {
         return [
