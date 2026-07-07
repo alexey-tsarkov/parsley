@@ -13,6 +13,9 @@ abstract class Parsley
      */
     final public static function fail(): Parser
     {
+        /**
+         * @var Parser\FailParser<T>
+         */
         static $parser = new Parser\FailParser();
 
         return $parser;
@@ -35,6 +38,9 @@ abstract class Parsley
      */
     final public static function anyToken(): Parser
     {
+        /**
+         * @var Parser\AnyTokenParser<T>
+         */
         static $parser = new Parser\AnyTokenParser();
 
         return $parser;
