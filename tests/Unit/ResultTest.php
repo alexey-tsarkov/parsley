@@ -137,7 +137,7 @@ final class ResultTest
     {
         $original = new Result('foo', 0);
 
-        (void) $original->map(static function ($value) {
+        $_ = $original->map(static function ($value) {
             Assert::same($value, 'foo');
 
             return $value;

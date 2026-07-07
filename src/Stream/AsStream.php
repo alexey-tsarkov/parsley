@@ -28,7 +28,7 @@ final class AsStream extends Stream
     #[\Override]
     public function current(): mixed
     {
-        (void) $this->stream->current();
+        $_ = $this->stream->current();
 
         return $this->token;
     }
