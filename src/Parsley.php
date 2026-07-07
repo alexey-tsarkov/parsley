@@ -9,6 +9,7 @@ abstract class Parsley
     /**
      * @template T
      * @return Parser<T, never>
+     * @phpstan-ignore method.templateTypeNotInParameter
      */
     final public static function fail(): Parser
     {
@@ -30,6 +31,7 @@ abstract class Parsley
     /**
      * @template T
      * @return Parser<T, T>
+     * @phpstan-ignore method.templateTypeNotInParameter
      */
     final public static function anyToken(): Parser
     {
