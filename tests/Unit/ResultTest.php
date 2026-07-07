@@ -60,7 +60,7 @@ final class ResultTest
 
 
     #[Test]
-    #[DataProvider(self::differentValueTypes(...))]
+    #[DataProvider([self::class, 'differentValueTypes'])]
     public function canCreateWithConstructor(mixed $value, int $offset): void
     {
         $actual = new Result($value, $offset);
@@ -70,7 +70,7 @@ final class ResultTest
     }
 
     #[Test]
-    #[DataProvider(self::differentValueTypes(...))]
+    #[DataProvider([self::class, 'differentValueTypes'])]
     public function canCreateWithFactory(mixed $value, int $offset): void
     {
         $actual = Result::from($value, $offset);
@@ -80,7 +80,7 @@ final class ResultTest
     }
 
     #[Test]
-    #[DataProvider(self::differentValueTypes(...))]
+    #[DataProvider([self::class, 'differentValueTypes'])]
     public function factoryAndConstructorAreConsistent(mixed $value, int $offset): void
     {
         $expected = new Result($value, $offset);
@@ -94,7 +94,7 @@ final class ResultTest
 
     #[Test]
     #[ExpectNoAssertions]
-    #[DataProvider(self::zeroOrPositiveOffsets(...))]
+    #[DataProvider([self::class, 'zeroOrPositiveOffsets'])]
     public function offsetCanBeZeroOrPositive(int $offset): void
     {
         new Result('', $offset);
@@ -102,7 +102,7 @@ final class ResultTest
 
     #[Test]
     #[ExpectException(\OutOfRangeException::class)]
-    #[DataProvider(self::negativeOffsets(...))]
+    #[DataProvider([self::class, 'negativeOffsets'])]
     public function offsetCannotBeNegative(int $offset): void
     {
         new Result('', $offset);
