@@ -8,6 +8,7 @@ namespace AlexTsarkov\Parsley;
  * Immutable container for parsed value and its stream position
  *
  * @template Value
+ *
  * @implements Functor<Value>
  */
 final readonly class Result implements Functor
@@ -15,8 +16,12 @@ final readonly class Result implements Functor
     /**
      * Factory method creating Result from value and offset
      *
-     * @param Value $value
-     * @return self<Value>
+     * @template FromValue
+     *
+     * @param FromValue $value
+     * @phpstan-param non-negative-int $offset
+     *
+     * @return self<FromValue>
      */
     #[\NoDiscard]
     public static function from(mixed $value, int $offset): self
@@ -27,11 +32,15 @@ final readonly class Result implements Functor
     /**
      * @param Value $value Parsed value from the input stream
      * @param int $offset Position in the input stream
+     * @phpstan-param non-negative-int $offset
      */
     public function __construct(
         public mixed $value,
         public int $offset,
     ) {
+        /**
+         * @phpstan-ignore smaller.alwaysFalse
+         */
         if ($offset < 0) {
             throw new \OutOfRangeException("Offset {$offset} is out of range");
         }
@@ -41,7 +50,9 @@ final readonly class Result implements Functor
      * Replaces value, preserves offset
      *
      * @template NewValue
+     *
      * @param NewValue $value
+     *
      * @return self<NewValue>
      */
     #[\NoDiscard]
@@ -54,7 +65,10 @@ final readonly class Result implements Functor
      * Transforms value via function, preserves offset
      *
      * @template NewValue
+     *
      * @param callable(Value $value): NewValue $function
+     * @param-immediately-invoked-callable $function
+     *
      * @return self<NewValue>
      */
     #[\NoDiscard]
