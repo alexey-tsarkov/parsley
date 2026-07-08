@@ -19,6 +19,7 @@ final class ResultTest
 {
     /**
      * @return iterable<string, array{mixed, int}>
+     * @phpstan-return iterable<string, array{mixed, non-negative-int}>
      */
     public static function differentValueTypes(): iterable
     {
@@ -37,6 +38,7 @@ final class ResultTest
 
     /**
      * @return iterable<string, array{int}>
+     * @phpstan-return iterable<string, array{non-negative-int}>
      */
     public static function zeroOrPositiveOffsets(): iterable
     {
@@ -49,6 +51,7 @@ final class ResultTest
 
     /**
      * @return iterable<string, array{int}>
+     * @phpstan-return iterable<string, array{negative-int}>
      */
     public static function negativeOffsets(): iterable
     {
@@ -58,7 +61,12 @@ final class ResultTest
         ];
     }
 
-
+    /**
+     * @template T
+     *
+     * @param T $value
+     * @phpstan-param non-negative-int $offset
+     */
     #[Test]
     #[DataProvider([self::class, 'differentValueTypes'])]
     public function canCreateWithConstructor(mixed $value, int $offset): void
@@ -69,6 +77,12 @@ final class ResultTest
         Assert::same($actual->offset, $offset);
     }
 
+    /**
+     * @template T
+     *
+     * @param T $value
+     * @phpstan-param non-negative-int $offset
+     */
     #[Test]
     #[DataProvider([self::class, 'differentValueTypes'])]
     public function canCreateWithFactory(mixed $value, int $offset): void
@@ -79,6 +93,12 @@ final class ResultTest
         Assert::same($actual->offset, $offset);
     }
 
+    /**
+     * @template T
+     *
+     * @param T $value
+     * @phpstan-param non-negative-int $offset
+     */
     #[Test]
     #[DataProvider([self::class, 'differentValueTypes'])]
     public function factoryAndConstructorAreConsistent(mixed $value, int $offset): void
@@ -92,20 +112,29 @@ final class ResultTest
         Assert::same($actual->offset, $expected->offset);
     }
 
+    /**
+     * @phpstan-param non-negative-int $offset
+     */
     #[Test]
     #[ExpectNoAssertions]
     #[DataProvider([self::class, 'zeroOrPositiveOffsets'])]
     public function offsetCanBeZeroOrPositive(int $offset): void
     {
-        new Result('', $offset);
+        $_ = new Result('', $offset);
     }
 
+    /**
+     * @phpstan-param negative-int $offset
+     */
     #[Test]
     #[ExpectException(\OutOfRangeException::class)]
     #[DataProvider([self::class, 'negativeOffsets'])]
     public function offsetCannotBeNegative(int $offset): void
     {
-        new Result('', $offset);
+        /**
+         * @phpstan-ignore argument.type
+         */
+        $_ = new Result('', $offset);
     }
 
     #[Test]
