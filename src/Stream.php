@@ -7,8 +7,10 @@ namespace AlexTsarkov\Parsley;
 /**
  * A seekable stream of tokens
  *
- * @template Token
+ * @template Token = string
+ *
  * @implements \SeekableIterator<int, Token>
+ * @phpstan-implements \SeekableIterator<non-negative-int, Token>
  * @implements Functor<Token>
  */
 abstract class Stream implements \SeekableIterator, Functor
@@ -17,7 +19,8 @@ abstract class Stream implements \SeekableIterator, Functor
      * Returns the current token without advancing the pointer
      *
      * @return Token
-     * @throws \OutOfBoundsException
+     * 
+     * @throws \UnderflowException
      */
     #[\Override]
     #[\NoDiscard]
@@ -26,7 +29,7 @@ abstract class Stream implements \SeekableIterator, Functor
     /**
      * Returns the current position in the stream
      *
-     * @return int
+     * @phpstan-return non-negative-int
      */
     #[\Override]
     #[\NoDiscard]
@@ -55,13 +58,21 @@ abstract class Stream implements \SeekableIterator, Functor
      * Moves the stream pointer to a specific position
      *
      * @param int $offset
+     * @phpstan-param non-negative-int $offset
+     * 
+     * @throws \InvalidArgumentException
+     * @throws \OutOfRangeException
      */
     #[\Override]
     abstract public function seek(mixed $offset): void;
 
     /**
+     * Creates a new stream with all tokens replaced by a constant value
+     * 
      * @template NewToken
+     * 
      * @param NewToken $token
+     * 
      * @return self<NewToken>
      */
     #[\Override]
@@ -72,8 +83,12 @@ abstract class Stream implements \SeekableIterator, Functor
     }
 
     /**
+     * Creates a new stream by applying a transformation function to each token
+     * 
      * @template NewToken
+     * 
      * @param callable(Token $token): NewToken $function
+     * 
      * @return self<NewToken>
      */
     #[\Override]
@@ -84,6 +99,8 @@ abstract class Stream implements \SeekableIterator, Functor
     }
 
     /**
+     * Safely retrieves the current token as a Result object without advancing the pointer
+     * 
      * @return ?Result<Token>
      */
     #[\NoDiscard]
