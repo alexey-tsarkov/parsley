@@ -7,21 +7,32 @@ namespace AlexTsarkov\Parsley\Stream;
 use AlexTsarkov\Parsley\Stream;
 
 /**
- * @template Token
+ * A Stream implementation that operates on arrays of tokens
+ *
+ * @template Token = string
+ *
  * @extends Stream<Token>
  */
 class ArrayStream extends Stream
 {
     /**
-     * @var Token[]
+     * @var list<Token>
      */
     private array $input;
 
+    /**
+     * @phpstan-var non-negative-int
+     */
     private int $offset = 0;
 
     /**
-     * @param array<Token> $tokens
-     * @return self<Token>
+     * Factory method creating Stream from array of tokens
+     *
+     * @template FromToken
+     *
+     * @param array<FromToken> $tokens
+     *
+     * @return self<FromToken>
      */
     public static function from(array $tokens): self
     {
@@ -29,7 +40,10 @@ class ArrayStream extends Stream
     }
 
     /**
-     * @return self<non-empty-string>
+     * Factory method creating Stream from bytes of the string
+     *
+     * @return self<string>
+     * @phpstan-return self<non-empty-string>
      */
     public static function fromString(string $input): self
     {
@@ -37,7 +51,10 @@ class ArrayStream extends Stream
     }
 
     /**
-     * @return self<non-empty-string>
+     * Factory method creating Stream from multibyte characters of the string
+     *
+     * @return self<string>
+     * @phpstan-return self<non-empty-string>
      */
     public static function fromMbString(string $input, ?string $encoding = null): self
     {
@@ -45,8 +62,13 @@ class ArrayStream extends Stream
     }
 
     /**
-     * @param Token ...$tokens
-     * @return self<Token>
+     * Factory method creating Stream from variadic list of tokens
+     *
+     * @template FromToken
+     *
+     * @param FromToken ...$tokens
+     *
+     * @return self<FromToken>
      */
     public static function of(mixed ...$tokens): self
     {
@@ -65,7 +87,7 @@ class ArrayStream extends Stream
     public function current(): mixed
     {
         if (!$this->valid()) {
-            throw new \OutOfBoundsException("Offset {$this->offset} is out of range");
+            throw new \UnderflowException("Cannot access token at offset {$this->offset}");
         }
 
         return $this->input[$this->offset];
@@ -92,12 +114,28 @@ class ArrayStream extends Stream
     #[\Override]
     public function valid(): bool
     {
-        return $this->offset >= 0 && $this->offset < \count($this->input);
+        return $this->offset < \count($this->input);
     }
 
     #[\Override]
     public function seek(mixed $offset): void
     {
+        /**
+         * @phpstan-ignore function.alreadyNarrowedType
+         */
+        if (!\is_int($offset)) {
+            $type = \get_debug_type($offset);
+
+            throw new \InvalidArgumentException("Offset must be of type int, {$type} given");
+        }
+
+        /**
+         * @phpstan-ignore smaller.alwaysFalse
+         */
+        if ($offset < 0) {
+            throw new \OutOfRangeException("Offset {$offset} is out of range");
+        }
+
         $this->offset = $offset;
     }
 }
