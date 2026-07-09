@@ -7,7 +7,7 @@ namespace AlexTsarkov\Parsley;
 /**
  * Immutable container for parsed value and its stream position
  *
- * @template Value
+ * @template-covariant Value
  *
  * @implements Functor<Value>
  */

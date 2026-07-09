@@ -19,7 +19,7 @@ abstract class Stream implements \SeekableIterator, Functor
      * Returns the current token without advancing the pointer
      *
      * @return Token
-     * 
+     *
      * @throws \UnderflowException
      */
     #[\Override]
@@ -59,7 +59,7 @@ abstract class Stream implements \SeekableIterator, Functor
      *
      * @param int $offset
      * @phpstan-param non-negative-int $offset
-     * 
+     *
      * @throws \InvalidArgumentException
      * @throws \OutOfRangeException
      */
@@ -68,11 +68,11 @@ abstract class Stream implements \SeekableIterator, Functor
 
     /**
      * Creates a new stream with all tokens replaced by a constant value
-     * 
+     *
      * @template NewToken
-     * 
+     *
      * @param NewToken $token
-     * 
+     *
      * @return self<NewToken>
      */
     #[\Override]
@@ -84,11 +84,11 @@ abstract class Stream implements \SeekableIterator, Functor
 
     /**
      * Creates a new stream by applying a transformation function to each token
-     * 
+     *
      * @template NewToken
-     * 
+     *
      * @param callable(Token $token): NewToken $function
-     * 
+     *
      * @return self<NewToken>
      */
     #[\Override]
@@ -100,7 +100,7 @@ abstract class Stream implements \SeekableIterator, Functor
 
     /**
      * Safely retrieves the current token as a Result object without advancing the pointer
-     * 
+     *
      * @return ?Result<Token>
      */
     #[\NoDiscard]
